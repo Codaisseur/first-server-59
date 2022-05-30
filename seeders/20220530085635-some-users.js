@@ -7,21 +7,21 @@ module.exports = {
       [
         {
           name: "Karla",
-          email: "k@k.com",
+          email: "k1@k.com",
           password: "k",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           name: "Matias",
-          email: "m@m.com",
+          email: "m1@m.com",
           password: "m",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           name: "Swen",
-          email: "s@s.com",
+          email: "s1@s.com",
           password: "s",
           createdAt: new Date(),
           updatedAt: new Date(),

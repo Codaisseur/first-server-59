@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // todoList.belongsTo(models.user)
+      todoList.belongsTo(models.user)
     }
   }
   todoList.init({

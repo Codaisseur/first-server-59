@@ -7,16 +7,19 @@ module.exports = {
       [
         {
           title: "Personal",
+          userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           title: "Work",
+          userId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           title: "Hobbies",
+          userId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

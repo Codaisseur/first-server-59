@@ -1,4 +1,5 @@
 const User = require("./models").user;
+const TodoList = require("./models").todoList
 
 // findAll => get all the entries from this table
 // findOne => get one entry
@@ -17,6 +18,13 @@ const logAllUsers = async () => {
     console.log(e.message);
   }
 };
+
+const getListWithUser = async () => {
+  const todoLists = await TodoList.findAll({ raw: true, include: User})
+  console.log(todoLists)
+}
+
+getListWithUser()
 
 const findById = async (id) => {
   try {

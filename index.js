@@ -6,7 +6,37 @@ const PORT = 4000;
 
 const app = express();
 
+//brew install httpie
+
+//sudo apt install httpie
+
+// Middlewares
+//1. A function called before you reach the request
+//a. To the entire index.js with app.use
+//b. to pass it to the endpoint
+//c. pass it to a router family
+
 app.use(express.json()) //body parser middleware
+
+const myMiddleware = ( request, response, next ) => {
+  console.log("In middleware")
+  next()
+}
+
+const randomAuthorizedMiddleware = (request, response, next) => {
+  const randomNumber = Math.random() * 10
+  console.log(randomNumber)
+
+  if (randomNumber < 5) {
+    return response.status(401).send("You can't be here")
+  } else {
+    console.log("welcome")
+    next()
+  }
+
+}
+
+app.use(randomAuthorizedMiddleware)
 
 //REST API
 // 1. Clean URLs
@@ -92,7 +122,7 @@ app.put("/users/:id", async (req, res) => {
   }
 });
 
-//delete a user -> http ...
+//delete a user -> http DELETE :4000/users/4
 app.delete("/users/:id", async (req, res) => {
   try {
 

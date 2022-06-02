@@ -1,10 +1,10 @@
-const { Router } = require("express")
+const { Router } = require("express");
 
 //models
 const User = require("../models").user;
-const TodoList = require("../models").todoList
+const TodoList = require("../models").todoList;
 
-const router = new Router()
+const router = new Router();
 
 router.get("/", async (req, res) => {
   try {
@@ -22,8 +22,8 @@ router.get("/:id", async (req, res) => {
 
     const oneUser = await User.findByPk(userId, { include: TodoList });
 
-    if (!oneUser){
-      return res.status(404).send("User not found")
+    if (!oneUser) {
+      return res.status(404).send("User not found");
     }
 
     res.send(oneUser);
@@ -32,41 +32,21 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//creates a new user -> http :4000/users name=Test phone=1234 email=test@test.com password=test
-router.post("/", async (req, res) => {
-  try {
-
-    //getting the user info from the body
-    const { name, phone, email, password } = req.body
-
-    //creating a new user
-    const newUser = await User.create({ name, phone, email, password })
-
-    //sending the created user as a response
-    res.send(newUser)
-
-  } catch (e) {
-    console.log(e.message);
-  }
-});
-
 //updates an existing user -> http PUT :4000/users/4 name=Boo
 router.put("/:id", async (req, res) => {
   try {
-
     //step 1. getting info from body
-    const { name, phone } = req.body
-    const { id } = req.params
+    const { name, phone } = req.body;
+    const { id } = req.params;
 
     //step 2. find the user to update
-    const user = await User.findByPk(id)
+    const user = await User.findByPk(id);
 
     //step 3. update the user
-    const updatedUser = await user.update({ name, phone })
+    const updatedUser = await user.update({ name, phone });
 
     //step 4. send the updated user as a response
-    res.send(updatedUser) 
-
+    res.send(updatedUser);
   } catch (e) {
     console.log(e.message);
   }
@@ -75,21 +55,19 @@ router.put("/:id", async (req, res) => {
 //delete a user -> http DELETE :4000/users/4
 router.delete("/:id", async (req, res) => {
   try {
-
-    const { id } = req.params
+    const { id } = req.params;
 
     //step 1. find the user to delete
-    const userToDelete = await User.findByPk(id)
+    const userToDelete = await User.findByPk(id);
 
     //step 2. delete the user
-    await userToDelete.destroy()
+    await userToDelete.destroy();
 
     //step 3. send a string with "deleted"
-    res.send("User terminated")
-
+    res.send("User terminated");
   } catch (e) {
     console.log(e.message);
   }
 });
 
-module.exports = router
+module.exports = router;

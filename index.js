@@ -1,7 +1,8 @@
 const express = require("express");
-
+const { toData } = require("./auth/jwt");
 const userRouter = require("./routers/users");
 const authRouter = require("./routers/auth");
+const authMiddleware = require("./auth/middleware");
 
 const PORT = 4000;
 
@@ -11,8 +12,14 @@ const app = express();
 app.use(express.json()); //body parser middleware
 
 // routers
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 app.use("/auth", authRouter);
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImlhdCI6MTY1NDE3NzA4MywiZXhwIjoxNjU0MTg0MjgzfQ.e_tGutDhLmiZFjxvbNCq3k630f6I3cawUB9k3N9hu-k
+
+app.get("/secret", authMiddleware, async (req, res, next) => {
+  res.send("if you see this is because you have a valid token!");
+});
 
 // start the app.
 app.listen(PORT, () => console.log("Hello from port 4000"));

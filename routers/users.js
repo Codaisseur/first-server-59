@@ -3,11 +3,13 @@ const { Router } = require("express");
 //models
 const User = require("../models").user;
 const TodoList = require("../models").todoList;
+const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 
 router.get("/", async (req, res) => {
   try {
+    console.log("req.user", req.user);
     const users = await User.findAll();
     res.send(users);
   } catch (e) {
@@ -16,9 +18,11 @@ router.get("/", async (req, res) => {
 });
 
 //get user with its lists -> http :4000/users/1
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware, async (req, res) => {
   try {
     const userId = req.params.id;
+
+    console.log("who is this???", req.user);
 
     const oneUser = await User.findByPk(userId, { include: TodoList });
 
